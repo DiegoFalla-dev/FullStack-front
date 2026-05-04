@@ -1,0 +1,127 @@
+<nav
+  class="navbar"
+  [class.navbar--scrolled]="isScrolled"
+  (clickOutside)="closeMenus()"
+>
+  <div class="navbar__container">
+
+    <!-- LOGO -->
+    <a routerLink="/" class="navbar__logo" (click)="closeMenus()">
+      Ticket<span class="navbar__logo-accent">Flow</span>
+    </a>
+
+    <!-- LINKS — desktop -->
+    <ul class="navbar__links">
+      <li *ngFor="let link of navLinks">
+        <a
+          [routerLink]="link.path"
+          [queryParams]="link.query"
+          routerLinkActive="navbar__link--active"
+          class="navbar__link"
+          (click)="closeMenus()"
+        >
+          {{ link.label }}
+        </a>
+      </li>
+    </ul>
+
+    <!-- ACCIONES — desktop -->
+    <div class="navbar__actions">
+
+      <!-- Buscador rápido -->
+      <a routerLink="/events" class="navbar__icon-btn" title="Buscar eventos">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/>
+        </svg>
+      </a>
+
+      <!-- Carrito -->
+      <button class="navbar__icon-btn navbar__cart" (click)="goToCart()" title="Mi carrito">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/>
+        </svg>
+        <span class="navbar__cart-badge" *ngIf="cartCount > 0">{{ cartCount }}</span>
+      </button>
+
+      <!-- Usuario logueado -->
+      <div class="navbar__user" *ngIf="isLoggedIn">
+        <button class="navbar__user-btn" (click)="toggleUserMenu()">
+          <span class="navbar__avatar">{{ userName.charAt(0) }}</span>
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" [class.rotated]="isUserMenuOpen">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
+        </button>
+
+        <!-- Dropdown usuario -->
+        <div class="navbar__dropdown" *ngIf="isUserMenuOpen">
+          <a routerLink="/profile" class="navbar__dropdown-item" (click)="closeMenus()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            Mi perfil
+          </a>
+          <a routerLink="/profile/orders" class="navbar__dropdown-item" (click)="closeMenus()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>
+            </svg>
+            Mis entradas
+          </a>
+          <div class="navbar__dropdown-divider"></div>
+          <button class="navbar__dropdown-item navbar__dropdown-item--danger" (click)="logout()">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/>
+            </svg>
+            Cerrar sesión
+          </button>
+        </div>
+      </div>
+
+      <!-- Botones auth — no logueado -->
+      <ng-container *ngIf="!isLoggedIn">
+        <a routerLink="/login" class="navbar__btn navbar__btn--ghost">Ingresar</a>
+        <a routerLink="/register" class="navbar__btn navbar__btn--primary">Registrarse</a>
+      </ng-container>
+
+    </div>
+
+    <!-- HAMBURGER — mobile -->
+    <button class="navbar__hamburger" (click)="toggleMobileMenu()" [class.is-open]="isMobileMenuOpen" aria-label="Menú">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+  </div>
+
+  <!-- MOBILE MENU -->
+  <div class="navbar__mobile" [class.navbar__mobile--open]="isMobileMenuOpen">
+    <ul class="navbar__mobile-links">
+      <li *ngFor="let link of navLinks">
+        <a
+          [routerLink]="link.path"
+          [queryParams]="link.query"
+          class="navbar__mobile-link"
+          (click)="closeMenus()"
+        >
+          {{ link.label }}
+        </a>
+      </li>
+    </ul>
+
+    <div class="navbar__mobile-actions">
+      <ng-container *ngIf="!isLoggedIn">
+        <a routerLink="/login" class="navbar__btn navbar__btn--ghost w-full text-center" (click)="closeMenus()">Ingresar</a>
+        <a routerLink="/register" class="navbar__btn navbar__btn--primary w-full text-center" (click)="closeMenus()">Registrarse</a>
+      </ng-container>
+      <ng-container *ngIf="isLoggedIn">
+        <a routerLink="/profile" class="navbar__mobile-link" (click)="closeMenus()">Mi perfil</a>
+        <a routerLink="/profile/orders" class="navbar__mobile-link" (click)="closeMenus()">Mis entradas</a>
+        <button class="navbar__mobile-link navbar__mobile-link--danger" (click)="logout()">Cerrar sesión</button>
+      </ng-container>
+    </div>
+  </div>
+
+</nav>
+
+<!-- Spacer para que el contenido no quede debajo del navbar fijo -->
+<div class="navbar__spacer"></div>
