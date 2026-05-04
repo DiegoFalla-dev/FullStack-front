@@ -1,0 +1,268 @@
+<section class="hero-section">
+ 
+  <div class="hero-orb hero-orb--left"></div>
+  <div class="hero-orb hero-orb--right"></div>
+ 
+  <div class="hero-noise"></div>
+ 
+  <div class="hero-inner">
+ 
+    <span class="hero-eyebrow">
+      🎟️ &nbsp;La plataforma de entradas N.º 1 en Perú
+    </span>
+ 
+    <h1 class="hero-title">
+      Descubre y reserva entradas<br>
+      para los <span class="hero-highlight">mejores eventos</span>
+    </h1>
+ 
+    <p class="hero-subtitle">
+      Conciertos, teatro, stand-up, festivales y mucho más —<br class="hidden sm:block">
+      todo en un solo lugar, sin complicaciones.
+    </p>
+ 
+    <div class="hero-ctas">
+      <button (click)="goToEvents()" class="btn-primary">
+        Explorar eventos
+        <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+      <button (click)="goToRegister()" class="btn-ghost-hero">
+        Crear cuenta gratis
+      </button>
+    </div>
+ 
+    <div class="search-wrapper">
+      <div class="search-bar">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Buscar eventos, artistas, lugares..."
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="onSearch()"
+        />
+        <button class="btn-search" (click)="onSearch()">Buscar</button>
+      </div>
+      <p class="search-hint">Prueba: "Rock en Lima", "Teatro Municipal", "Jazz"</p>
+    </div>
+ 
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-number">50+</span>
+        <span class="stat-label">Eventos activos</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-number">12K+</span>
+        <span class="stat-label">Entradas vendidas</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-number">98%</span>
+        <span class="stat-label">Clientes satisfechos</span>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="container">
+ 
+    <div class="section-header">
+      <h2 class="section-title">Explora por categoría</h2>
+      <p class="section-subtitle">Encuentra exactamente lo que buscas</p>
+    </div>
+ 
+    <div class="categories-grid">
+      <button
+        *ngFor="let cat of categories"
+        class="cat-card"
+        [class.cat-card--active]="activeCategory === cat.value"
+        (click)="setCategory(cat.value)"
+      >
+        <span class="cat-emoji">{{ cat.emoji }}</span>
+        <span class="cat-label">{{ cat.label }}</span>
+        <span class="cat-arrow">→</span>
+      </button>
+    </div>
+ 
+  </div>
+</section>
+
+<section class="section-pad section-dark">
+  <div class="container">
+ 
+    <div class="section-header">
+      <h2 class="section-title">Eventos destacados</h2>
+      <p class="section-subtitle">Los más populares de la temporada</p>
+    </div>
+ 
+    <div class="filter-chips">
+      <button
+        class="chip"
+        [class.chip--active]="activeCategory === 'todos'"
+        (click)="setCategory('todos')"
+      >Todos</button>
+      <button
+        *ngFor="let cat of categories"
+        class="chip"
+        [class.chip--active]="activeCategory === cat.value"
+        (click)="setCategory(cat.value)"
+      >
+        {{ cat.emoji }} {{ cat.label }}
+      </button>
+    </div>
+ 
+    <div class="events-grid" *ngIf="filteredEvents.length > 0; else sinEventos">
+      <div
+        class="event-card"
+        *ngFor="let ev of filteredEvents"
+        (click)="goToEvent(ev.id)"
+      >
+        <div class="event-banner" [ngClass]="ev.gradient">
+          <span class="event-emoji">{{ ev.emoji }}</span>
+          <span *ngIf="ev.badge" class="event-badge">{{ ev.badge }}</span>
+          <span class="event-cat-pill">{{ ev.categoryLabel }}</span>
+        </div>
+ 
+        <div class="event-body">
+          <h3 class="event-name">{{ ev.name }}</h3>
+          <p class="event-meta">
+            <svg class="meta-svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+            </svg>
+            {{ ev.date }}
+          </p>
+          <p class="event-meta">
+            <svg class="meta-svg" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+            </svg>
+            {{ ev.venue }}
+          </p>
+          <div class="event-footer">
+            <div>
+              <span class="event-from">Desde</span>
+              <span class="event-price">S/ {{ ev.price }}</span>
+            </div>
+            <button class="btn-ver-mas" (click)="goToEvent(ev.id); $event.stopPropagation()">
+              Ver más →
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+    <ng-template #sinEventos>
+      <div class="empty-state">
+        <span class="empty-emoji">🔍</span>
+        <p class="empty-title">Sin resultados para "<strong>{{ searchQuery }}</strong>"</p>
+        <button class="btn-ghost-sm" (click)="clearSearch()">Ver todos los eventos</button>
+      </div>
+    </ng-template>
+ 
+    <div class="text-center mt-10">
+      <button class="btn-outline" (click)="goToEvents()">Ver todos los eventos →</button>
+    </div>
+ 
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="container">
+ 
+    <div class="section-header">
+      <h2 class="section-title">¿Cómo funciona?</h2>
+      <p class="section-subtitle">Cuatro pasos simples para vivir tu próximo evento</p>
+    </div>
+ 
+    <div class="steps-grid">
+      <div class="step-card" *ngFor="let step of steps; let last = last">
+        <div class="step-number">{{ step.number }}</div>
+        <div class="step-icon">{{ step.icon }}</div>
+        <h3 class="step-title">{{ step.title }}</h3>
+        <p class="step-desc">{{ step.desc }}</p>
+        <div *ngIf="!last" class="step-connector"></div>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<section class="section-pad section-dark">
+  <div class="container">
+ 
+    <div class="section-header">
+      <h2 class="section-title">¿Por qué elegir TicketFlow?</h2>
+      <p class="section-subtitle">Diseñado pensando en tu experiencia de principio a fin</p>
+    </div>
+ 
+    <div class="benefits-grid">
+      <div class="benefit-card" *ngFor="let b of benefits">
+        <div class="benefit-icon">{{ b.icon }}</div>
+        <h4 class="benefit-title">{{ b.title }}</h4>
+        <p class="benefit-desc">{{ b.desc }}</p>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+
+<section class="section-pad">
+  <div class="container">
+ 
+    <div class="section-header">
+      <h2 class="section-title">Lo que dicen nuestros usuarios</h2>
+      <p class="section-subtitle">Miles de personas ya viven sus eventos con TicketFlow</p>
+    </div>
+ 
+    <div class="testimonials-grid">
+      <div class="testimonial-card" *ngFor="let t of testimonials">
+        <div class="stars">
+          <span *ngFor="let s of starsArray; let i = index" class="star" [class.star--lit]="i < t.rating">★</span>
+        </div>
+        <p class="testimonial-text">"{{ t.text }}"</p>
+        <div class="testimonial-author">
+          <div class="avatar">{{ t.initials }}</div>
+          <div>
+            <p class="author-name">{{ t.name }}</p>
+            <p class="author-role">{{ t.role }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+ 
+  </div>
+</section>
+ 
+<section class="cta-section">
+  <div class="cta-orb cta-orb--left"></div>
+  <div class="cta-orb cta-orb--right"></div>
+ 
+  <div class="cta-inner">
+    <span class="cta-eyebrow">🚀 &nbsp;Empieza ahora — es gratis</span>
+    <h2 class="cta-title">
+      Tu próximo evento<br>
+      <span class="hero-highlight">te está esperando</span>
+    </h2>
+    <p class="cta-subtitle">
+      Únete a miles de personas que ya viven sus mejores momentos con TicketFlow.
+    </p>
+    <div class="cta-buttons">
+      <button (click)="goToRegister()" class="btn-primary">
+        Crear cuenta gratis
+        <svg class="btn-arrow" viewBox="0 0 20 20" fill="currentColor">
+          <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/>
+        </svg>
+      </button>
+      <button (click)="goToEvents()" class="btn-ghost-hero">
+        Explorar eventos
+      </button>
+    </div>
+  </div>
+</section>
+ 
