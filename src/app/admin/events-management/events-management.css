@@ -1,0 +1,63 @@
+/* Specific styles for Events Management (extends users-management.css) */
+
+.font-bold {
+  font-weight: 600;
+  color: #fff;
+}
+
+.zones-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.badge--zone {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.modal--large {
+  max-width: 700px;
+}
+
+.modal__body--scrollable {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* Custom scrollbar for modal */
+.modal__body--scrollable::-webkit-scrollbar {
+  width: 8px;
+}
+.modal__body--scrollable::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.1);
+  border-radius: 4px;
+}
+.modal__body--scrollable::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
+}
+.modal__body--scrollable::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.3);
+}
+
+.zones-editor {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: rgba(0,0,0,0.15);
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px dashed var(--admin-border);
+}
+
+.mt-2 {
+  margin-top: 8px;
+}
+
+.btn--small {
+  padding: 6px 12px;
+  font-size: 0.8125rem;
+}
