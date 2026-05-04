@@ -35,7 +35,6 @@
             <li *ngFor="let item of group.items">
               <a
                 [routerLink]="item.path"
-                [queryParams]="item.query"
                 class="footer__col-link"
               >
                 {{ item.label }}

@@ -17,29 +17,28 @@ export class Footer {
     {
       title: 'Descubrir',
       items: [
-        { label: 'Conciertos',  path: '/events', query: { category: 'conciertos' } },
-        { label: 'Teatro',      path: '/events', query: { category: 'teatro' } },
-        { label: 'Deportes',    path: '/events', query: { category: 'deportes' } },
-        { label: 'Festivales',  path: '/events', query: { category: 'festivales' } },
-        { label: 'Stand Up',    path: '/events', query: { category: 'stand-up' } },
+        { label: 'Conciertos',  path: '/eventos/conciertos' },
+        { label: 'Teatro',      path: '/eventos/teatro' },
+        { label: 'Deportes',    path: '/eventos/deportes' },
+        { label: 'Festivales',  path: '/eventos/festivales' },
       ]
     },
     {
       title: 'Tu cuenta',
       items: [
-        { label: 'Iniciar sesión',  path: '/login',            query: {} },
-        { label: 'Registrarse',     path: '/register',         query: {} },
-        { label: 'Mis entradas',    path: '/profile/orders',   query: {} },
-        { label: 'Mi perfil',       path: '/profile',          query: {} },
+        { label: 'Iniciar sesión',  path: '/login' },
+        { label: 'Registrarse',     path: '/register' },
+        { label: 'Mis entradas',    path: '/profile/orders' },
+        { label: 'Mi perfil',       path: '/profile' },
       ]
     },
     {
       title: 'Ayuda',
       items: [
-        { label: 'Preguntas frecuentes', path: '/faq',      query: {} },
-        { label: 'Términos de uso',      path: '/terms',    query: {} },
-        { label: 'Política de privacidad', path: '/privacy', query: {} },
-        { label: 'Contacto',             path: '/contact',  query: {} },
+        { label: 'Preguntas frecuentes', path: '/faq' },
+        { label: 'Términos de uso',      path: '/terms' },
+        { label: 'Política de privacidad', path: '/privacy' },
+        { label: 'Contacto',             path: '/contact' },
       ]
     }
   ];
