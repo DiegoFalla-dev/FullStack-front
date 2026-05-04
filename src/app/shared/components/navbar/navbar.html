@@ -15,7 +15,6 @@
       <li *ngFor="let link of navLinks">
         <a
           [routerLink]="link.path"
-          [queryParams]="link.query"
           routerLinkActive="navbar__link--active"
           class="navbar__link"
           (click)="closeMenus()"
@@ -99,7 +98,6 @@
       <li *ngFor="let link of navLinks">
         <a
           [routerLink]="link.path"
-          [queryParams]="link.query"
           class="navbar__mobile-link"
           (click)="closeMenus()"
         >
