@@ -1,0 +1,108 @@
+<div class="admin-view">
+  <div class="admin-view__header">
+    <div>
+      <h1 class="admin-view__title">Users Management</h1>
+      <p class="admin-view__subtitle">Manage platform administrators and customers.</p>
+    </div>
+    <button class="btn btn--primary" (click)="openModal('CREATE')">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+      Add User
+    </button>
+  </div>
+
+  <div class="table-container">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>DNI</th>
+          <th>First Name</th>
+          <th>Last Name</th>
+          <th>Role</th>
+          <th class="table__actions-header">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users">
+          <td>{{ user.dni }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>
+            <span class="badge" [class.badge--admin]="user.role === 'ADMIN'">
+              {{ user.role }}
+            </span>
+          </td>
+          <td class="table__actions">
+            <button class="action-btn action-btn--edit" title="Edit" (click)="openModal('EDIT', user)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+              </svg>
+            </button>
+            <button class="action-btn action-btn--delete" title="Delete" (click)="deleteUser(user.id)">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                <line x1="10" y1="11" x2="10" y2="17"></line>
+                <line x1="14" y1="11" x2="14" y2="17"></line>
+              </svg>
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="users.length === 0">
+          <td colspan="6" class="table__empty">No users found.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal (Visual Form) -->
+<div class="modal-overlay" *ngIf="isModalOpen" (click)="closeModal()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal__header">
+      <h2>{{ modalMode === 'CREATE' ? 'Create New User' : 'Edit User' }}</h2>
+      <button class="modal__close" (click)="closeModal()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+    <div class="modal__body">
+      <form class="form">
+        <div class="form-group">
+          <label for="dni">DNI</label>
+          <input type="text" id="dni" class="form-control" placeholder="Enter DNI" [value]="selectedUser?.dni || ''">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" class="form-control" placeholder="First Name" [value]="selectedUser?.firstName || ''">
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" class="form-control" placeholder="Last Name" [value]="selectedUser?.lastName || ''">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="role">Role</label>
+          <select id="role" class="form-control">
+            <option value="CUSTOMER" [selected]="selectedUser?.role === 'CUSTOMER'">CUSTOMER</option>
+            <option value="ADMIN" [selected]="selectedUser?.role === 'ADMIN'">ADMIN</option>
+          </select>
+        </div>
+        <div class="form-group" *ngIf="modalMode === 'CREATE'">
+          <label for="password">Password</label>
+          <input type="password" id="password" class="form-control" placeholder="Enter password">
+        </div>
+      </form>
+    </div>
+    <div class="modal__footer">
+      <button class="btn btn--ghost" (click)="closeModal()">Cancel</button>
+      <button class="btn btn--primary" (click)="saveUser()">Save</button>
+    </div>
+  </div>
+</div>
