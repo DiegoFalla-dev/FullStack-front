@@ -2,6 +2,23 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+interface FooterItem {
+  label: string;
+  path: string;
+  queryParams?: { [key: string]: any };
+}
+
+interface FooterGroup {
+  title: string;
+  items: FooterItem[];
+}
+
+interface FooterSocial {
+  label: string;
+  url: string;
+  icon: string;
+}
+
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.html',
@@ -13,14 +30,14 @@ export class Footer {
 
   currentYear = new Date().getFullYear();
 
-  links = [
+  links: FooterGroup[] = [
     {
       title: 'Descubrir',
       items: [
-        { label: 'Conciertos',  path: '/eventos/conciertos' },
-        { label: 'Teatro',      path: '/eventos/teatro' },
-        { label: 'Deportes',    path: '/eventos/deportes' },
-        { label: 'Festivales',  path: '/eventos/festivales' },
+        { label: 'Conciertos',  path: '/', queryParams: { category: 'concierto' } },
+        { label: 'Teatro',      path: '/', queryParams: { category: 'teatro' } },
+        { label: 'Deportes',    path: '/', queryParams: { category: 'deporte' } },
+        { label: 'Festivales',  path: '/', queryParams: { category: 'festival' } },
       ]
     },
     {
@@ -43,7 +60,7 @@ export class Footer {
     }
   ];
 
-  socials = [
+  socials: FooterSocial[] = [
     {
       label: 'Facebook',
       url: 'https://facebook.com',

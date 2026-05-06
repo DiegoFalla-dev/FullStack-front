@@ -21,10 +21,10 @@ export class Navbar implements OnInit {
   userName = 'User';
 
   navLinks = [
-    { label: 'Conciertos', path: '/eventos/conciertos' },
-    { label: 'Teatro',     path: '/eventos/teatro' },
-    { label: 'Deportes',   path: '/eventos/deportes' },
-    { label: 'Festivales', path: '/eventos/festivales' },
+    { label: 'Conciertos', path: '/', queryParams: { category: 'concierto' } },
+    { label: 'Teatro',     path: '/', queryParams: { category: 'teatro' } },
+    { label: 'Deportes',   path: '/', queryParams: { category: 'deporte' } },
+    { label: 'Festivales', path: '/', queryParams: { category: 'festival' } },
   ];
 
   constructor(private router: Router) {}

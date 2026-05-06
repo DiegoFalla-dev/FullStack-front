@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { EventsService } from '../events.service';
 import { Event } from '../events.model';
 
@@ -13,9 +14,13 @@ import { Event } from '../events.model';
 export class Teatro implements OnInit {
   teatros: Event[] = [];
 
-  constructor(private eventsService: EventsService) {}
+  constructor(private eventsService: EventsService, private router: Router) {}
 
   ngOnInit() {
     this.teatros = this.eventsService.getEventsByType('teatro');
+  }
+
+  goToEventDetail(id: number): void {
+    this.router.navigate(['/eventos', id]);
   }
 }

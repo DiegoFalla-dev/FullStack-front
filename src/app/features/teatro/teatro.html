@@ -8,7 +8,7 @@
     <div *ngFor="let evento of teatros" class="event-card">
       <div class="event-image">
         <img [src]="evento.image" [alt]="evento.title" />
-        <span class="event-price">${{ evento.price }}</span>
+        <span class="event-price">S/ {{ evento.price }}</span>
       </div>
 
       <div class="event-content">
@@ -34,7 +34,7 @@
           </div>
         </div>
 
-        <button class="btn-comprar">Comprar Entrada</button>
+        <button class="btn-comprar" (click)="goToEventDetail(evento.id)">Comprar Entrada</button>
       </div>
     </div>
   </div>

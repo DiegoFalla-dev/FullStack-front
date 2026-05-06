@@ -15,7 +15,7 @@ export class EventsService {
       date: '2026-06-15',
       time: '20:00',
       location: 'Estadio Nacional',
-      image: 'https://via.placeholder.com/300x200?text=The+Weeknd',
+      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1219.jpg?fit=1920%2C1180&ssl=1',
       price: 150,
       rating: 4.8
     },
@@ -27,7 +27,7 @@ export class EventsService {
       date: '2026-07-10',
       time: '19:30',
       location: 'Arena Metropolitana',
-      image: 'https://via.placeholder.com/300x200?text=Coldplay',
+      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1219.jpg?fit=1920%2C1180&ssl=1',
       price: 120,
       rating: 4.9
     },
@@ -39,7 +39,7 @@ export class EventsService {
       date: '2026-08-20',
       time: '18:00',
       location: 'Parque Central',
-      image: 'https://via.placeholder.com/300x200?text=Indie+Festival',
+      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1221.jpg?fit=1920%2C1180&ssl=1',
       price: 80,
       rating: 4.5
     },
@@ -52,7 +52,7 @@ export class EventsService {
       date: '2026-06-20',
       time: '19:00',
       location: 'Teatro Nacional',
-      image: 'https://via.placeholder.com/300x200?text=Hamlet',
+      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1222.jpg?fit=1920%2C1180&ssl=1',
       price: 45,
       rating: 4.7
     },
@@ -64,7 +64,7 @@ export class EventsService {
       date: '2026-07-05',
       time: '20:00',
       location: 'Teatro Colón',
-      image: 'https://via.placeholder.com/300x200?text=Casa+Espiritus',
+      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1223.jpg?fit=1920%2C1180&ssl=1',
       price: 55,
       rating: 4.6
     },
@@ -76,7 +76,7 @@ export class EventsService {
       date: '2026-06-25',
       time: '18:30',
       location: 'Teatro de la Risa',
-      image: 'https://via.placeholder.com/300x200?text=Comedia',
+      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1224.jpg?fit=1920%2C1180&ssl=1',
       price: 35,
       rating: 4.4
     },
@@ -89,7 +89,7 @@ export class EventsService {
       date: '2026-06-10',
       time: '15:00',
       location: 'Estadio Olímpico',
-      image: 'https://via.placeholder.com/300x200?text=Futbol',
+      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1225.jpg?fit=1920%2C1180&ssl=1',
       price: 70,
       rating: 4.8
     },
@@ -101,7 +101,7 @@ export class EventsService {
       date: '2026-07-15',
       time: '14:00',
       location: 'Centro de Tenis',
-      image: 'https://via.placeholder.com/300x200?text=Tenis',
+      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1219.jpg?fit=1920%2C1180&ssl=1',
       price: 85,
       rating: 4.7
     },
@@ -113,7 +113,7 @@ export class EventsService {
       date: '2026-08-01',
       time: '20:00',
       location: 'Arena de Combate',
-      image: 'https://via.placeholder.com/300x200?text=Boxeo',
+      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1226.jpg?fit=1920%2C1180&ssl=1',
       price: 200,
       rating: 4.9
     },
@@ -126,7 +126,7 @@ export class EventsService {
       date: '2026-06-30',
       time: '16:00',
       location: 'Centro de Convenciones',
-      image: 'https://via.placeholder.com/300x200?text=Cine+Festival',
+      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1227.jpg?fit=1920%2C1180&ssl=1',
       price: 25,
       rating: 4.8
     },
@@ -138,7 +138,7 @@ export class EventsService {
       date: '2026-07-20',
       time: '11:00',
       location: 'Plaza Mayor',
-      image: 'https://via.placeholder.com/300x200?text=Comida+Festival',
+      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1228.jpg?fit=1920%2C1180&ssl=1',
       price: 30,
       rating: 4.6
     },
@@ -150,7 +150,7 @@ export class EventsService {
       date: '2026-08-10',
       time: '10:00',
       location: 'Museo de Bellas Artes',
-      image: 'https://via.placeholder.com/300x200?text=Arte+Festival',
+      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1229.jpg?fit=1920%2C1180&ssl=1',
       price: 20,
       rating: 4.5
     }

@@ -1,21 +1,10 @@
-import { Component, OnInit  } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterModule } from '@angular/router';
+import { Router, RouterModule, ActivatedRoute } from '@angular/router';
+import { EventsService } from '../../events.service';
+import { Event } from '../../events.model';
 
-interface EventItem {
-  id:            number;
-  name:          string;
-  date:          string;
-  venue:         string;
-  price:         number;
-  category:      string;
-  categoryLabel: string;
-  emoji:         string;
-  gradient:      string;
-  badge?:        string;
-}
- 
 interface Category {
   label: string;
   value: string;
@@ -53,57 +42,19 @@ interface Testimonial {
 
 export class Home implements OnInit {
 
+  @ViewChild('eventosDestacados') eventosDestacados!: ElementRef;
+
   searchQuery    = '';
   activeCategory = 'todos';
+  allEvents: Event[] = [];
+  filteredEvents: Event[] = [];
  
   categories: Category[] = [
-    { label: 'Conciertos', value: 'conciertos', emoji: '🎵' },
+    { label: 'Conciertos', value: 'concierto', emoji: '🎵' },
     { label: 'Teatro',     value: 'teatro',     emoji: '🎭' },
-    { label: 'Stand-up',   value: 'standup',    emoji: '🎤' },
-    { label: 'Festivales', value: 'festivales', emoji: '🎉' },
-    { label: 'Deportes',   value: 'deportes',   emoji: '🏟️' },
+    { label: 'Deportes',   value: 'deporte',    emoji: '⚽' },
+    { label: 'Festivales', value: 'festival', emoji: '🎉' },
   ];
- 
-  allEvents: EventItem[] = [
-    {
-      id: 1, name: 'Rock en Lima 2026',
-      date: 'Sáb 15 Jun · 7:00 PM', venue: 'Estadio Nacional, Lima',
-      price: 120, category: 'conciertos', categoryLabel: 'Concierto',
-      emoji: '🎸', gradient: 'grad-purple', badge: '🔥 Agotándose',
-    },
-    {
-      id: 2, name: 'El Rey León — Musical',
-      date: 'Vie 20 Jun · 8:00 PM', venue: 'Teatro Municipal, Lima',
-      price: 80, category: 'teatro', categoryLabel: 'Teatro',
-      emoji: '🎭', gradient: 'grad-emerald',
-    },
-    {
-      id: 3, name: 'Carlos Alcántara — Unipersonal',
-      date: 'Dom 22 Jun · 7:30 PM', venue: 'Centro de Convenciones, Lima',
-      price: 65, category: 'standup', categoryLabel: 'Stand-up',
-      emoji: '🎤', gradient: 'grad-blue', badge: '⭐ Destacado',
-    },
-    {
-      id: 4, name: 'Lima Music Festival',
-      date: 'Sáb 05 Jul · 4:00 PM', venue: 'Parque de la Exposición, Lima',
-      price: 150, category: 'festivales', categoryLabel: 'Festival',
-      emoji: '🎪', gradient: 'grad-rose', badge: '🎉 Nuevo',
-    },
-    {
-      id: 5, name: 'Clásico Alianza vs U',
-      date: 'Dom 22 Jun · 3:00 PM', venue: 'Estadio Monumental, Lima',
-      price: 50, category: 'deportes', categoryLabel: 'Deporte',
-      emoji: '🏟️', gradient: 'grad-amber',
-    },
-    {
-      id: 6, name: 'Noche de Jazz 2026',
-      date: 'Jue 12 Jul · 9:00 PM', venue: 'Auditorio Miraflores, Lima',
-      price: 90, category: 'conciertos', categoryLabel: 'Concierto',
-      emoji: '🎷', gradient: 'grad-slate',
-    },
-  ];
- 
-  filteredEvents: EventItem[] = [];
  
   steps: Step[] = [
     { number: '01', icon: '🔍', title: 'Busca tu evento',      desc: 'Explora la cartelera de conciertos, teatro, festivales y más.' },
@@ -117,7 +68,7 @@ export class Home implements OnInit {
     { icon: '🔒', title: 'Pago 100 % seguro',    desc: 'Transacciones cifradas. Tu información financiera siempre está protegida.' },
     { icon: '📱', title: 'Entrada digital QR',   desc: 'Sin papel ni filas. Muestra tu QR en la puerta y listo.' },
     { icon: '🔔', title: 'Notificaciones',       desc: 'Te avisamos sobre preventas, cambios de fecha y nuevos eventos.' },
-    { icon: '🎯', title: 'Gran variedad',        desc: 'Más de 50 eventos activos en Lima. Siempre hay algo nuevo.' },
+    { icon: '🎯', title: 'Gran variedad',        desc: 'Más de 50 eventos activos. Siempre hay algo nuevo.' },
     { icon: '💬', title: 'Soporte inmediato',    desc: 'Atención disponible antes y durante el evento para lo que necesites.' },
   ];
  
@@ -141,9 +92,30 @@ export class Home implements OnInit {
  
   starsArray = [1, 2, 3, 4, 5];
  
-  constructor(private router: Router) {}
+  constructor(private router: Router, private eventsService: EventsService, private route: ActivatedRoute) {}
  
   ngOnInit(): void {
+    // Leer query params para categoría
+    this.route.queryParams.subscribe(params => {
+      if (params['category']) {
+        this.activeCategory = params['category'];
+        // Scrollear hacia la sección de eventos destacados después de un pequeño delay
+        setTimeout(() => {
+          this.scrollToEventos();
+        }, 100);
+      }
+    });
+    this.loadEvents();
+  }
+
+  private scrollToEventos(): void {
+    if (this.eventosDestacados) {
+      this.eventosDestacados.nativeElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  private loadEvents(): void {
+    this.allEvents = this.eventsService.getAllEvents();
     this.filterEvents();
   }
  
@@ -156,14 +128,14 @@ export class Home implements OnInit {
   filterEvents(): void {
     let list = this.allEvents;
     if (this.activeCategory !== 'todos') {
-      list = list.filter(e => e.category === this.activeCategory);
+      list = list.filter(e => e.type === this.activeCategory);
     }
     if (this.searchQuery.trim()) {
       const q = this.searchQuery.toLowerCase();
       list = list.filter(e =>
-        e.name.toLowerCase().includes(q) ||
-        e.venue.toLowerCase().includes(q) ||
-        e.categoryLabel.toLowerCase().includes(q)
+        e.title.toLowerCase().includes(q) ||
+        e.location.toLowerCase().includes(q) ||
+        e.description.toLowerCase().includes(q)
       );
     }
     this.filteredEvents = list;
@@ -181,15 +153,35 @@ export class Home implements OnInit {
   }
  
   goToEvent(id: number): void {
-    this.router.navigate(['/events', id]);
+    this.router.navigate(['/eventos', id]);
   }
  
   goToEvents(): void {
-    this.router.navigate(['/events']);
+    this.router.navigate(['/eventos']);
   }
  
   goToRegister(): void {
     this.router.navigate(['/register']);
+  }
+
+  getEventTypeLabel(type: string): string {
+    const labels: { [key: string]: string } = {
+      concierto: 'Concierto',
+      teatro: 'Teatro',
+      deporte: 'Deporte',
+      festival: 'Festival'
+    };
+    return labels[type] || 'Evento';
+  }
+
+  getEventTypeEmoji(type: string): string {
+    const emojis: { [key: string]: string } = {
+      concierto: '🎵',
+      teatro: '🎭',
+      deporte: '⚽',
+      festival: '🎉'
+    };
+    return emojis[type] || '🎉';
   }
 }
  
