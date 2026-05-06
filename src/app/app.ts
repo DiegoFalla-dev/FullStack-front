@@ -17,7 +17,7 @@ export class App {
 
   protected readonly hideHeaderFooter = computed(() => {
     const url = this.currentUrl();
-    return url.startsWith('/login') || url.startsWith('/register') || url.startsWith('/auth/login') || url.startsWith('/auth/register');
+    return url.startsWith('/login') || url.startsWith('/register') || url.startsWith('/auth/login') || url.startsWith('/auth/register') || url.startsWith('/checkout');
   });
 
   constructor(private router: Router) {
