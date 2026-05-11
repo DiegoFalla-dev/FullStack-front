@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild, ElementRef  } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
-import { EventsService } from '../../events.service';
-import { Event } from '../../events.model';
+import { EventsService } from '../events.service';
+import { Event } from '../events.model';
 
 interface Category {
   label: string;

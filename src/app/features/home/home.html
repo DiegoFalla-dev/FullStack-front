@@ -17,7 +17,7 @@
     </h1>
  
     <p class="hero-subtitle">
-      Conciertos, teatro, stand-up, festivales y mucho más —<br class="hidden sm:block">
+      Conciertos, teatro, festivales y mucho más —<br class="hidden sm:block">
       todo en un solo lugar, sin complicaciones.
     </p>
  
@@ -47,7 +47,7 @@
         />
         <button class="btn-search" (click)="onSearch()">Buscar</button>
       </div>
-      <p class="search-hint">Prueba: "Rock en Lima", "Teatro Municipal", "Jazz"</p>
+      <p class="search-hint">Prueba: "Concierto" o "Festival"</p>
     </div>
  
     <div class="hero-stats">
@@ -72,25 +72,23 @@
 
 <section class="section-pad">
   <div class="container">
- 
+
     <div class="section-header">
       <h2 class="section-title">Explora por categoría</h2>
       <p class="section-subtitle">Encuentra exactamente lo que buscas</p>
     </div>
- 
+
     <div class="categories-grid">
-      <button
+      <div
         *ngFor="let cat of categories"
         class="cat-card"
-        [class.cat-card--active]="activeCategory === cat.value"
-        (click)="setCategory(cat.value)"
       >
         <span class="cat-emoji">{{ cat.emoji }}</span>
         <span class="cat-label">{{ cat.label }}</span>
         <span class="cat-arrow">→</span>
-      </button>
+      </div>
     </div>
- 
+
   </div>
 </section>
 

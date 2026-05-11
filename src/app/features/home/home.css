@@ -186,25 +186,28 @@
 .stat-divider { width: 1px; height: 40px; background: var(--border); }
 
 .categories-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 16px;
 }
+
 .cat-card {
+  width: 180px;
+  flex: 0 0 180px;
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 10px; padding: 28px 16px;
   background: var(--bg-card); border: 1px solid var(--border);
-  border-radius: var(--radius); cursor: pointer;
+  border-radius: var(--radius);
   transition: border-color var(--t), transform var(--t), background var(--t);
   position: relative; overflow: hidden;
   font-family: 'DM Sans', sans-serif;
 }
-.cat-card:hover, .cat-card--active {
+.cat-card:hover {
   border-color: var(--accent);
   transform: translateY(-3px);
   background: rgba(124,58,237,.06);
 }
-.cat-card--active { box-shadow: 0 0 0 1px var(--accent); }
 .cat-emoji { font-size: 2rem; }
 .cat-label { font-size: .9rem; font-weight: 600; color: var(--txt-1); }
 .cat-arrow {
@@ -212,7 +215,7 @@
   font-size: .8rem; color: var(--txt-3);
   transition: color var(--t), transform var(--t);
 }
-.cat-card:hover .cat-arrow, .cat-card--active .cat-arrow {
+.cat-card:hover .cat-arrow {
   color: var(--accent-l); transform: translateX(3px);
 }
 

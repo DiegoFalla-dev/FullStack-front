@@ -19,12 +19,12 @@ export class Navbar implements OnInit {
   // Simulado — reemplazar con AuthService cuando lo implementes
   isLoggedIn = false;
   userName = 'User';
-
+  
   navLinks = [
-    { label: 'Conciertos', path: '/', queryParams: { category: 'concierto' } },
-    { label: 'Teatro',     path: '/', queryParams: { category: 'teatro' } },
-    { label: 'Deportes',   path: '/', queryParams: { category: 'deporte' } },
-    { label: 'Festivales', path: '/', queryParams: { category: 'festival' } },
+    { label: 'Conciertos', path: '/conciertos', queryParams: {} },
+    { label: 'Teatro',     path: '/teatro',     queryParams: {} },
+    { label: 'Deportes',   path: '/deportes',   queryParams: {} },
+    { label: 'Festivales', path: '/festivales', queryParams: {} },
   ];
 
   constructor(private router: Router) {}

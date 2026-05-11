@@ -10,7 +10,7 @@ export class EventsService {
     {
       id: 1,
       title: 'The Weeknd Live Tour',
-      description: 'Concierto en vivo del famoso artista The Weeknd',
+      description: 'Concierto en vivo del artista The Weeknd',
       type: 'concierto',
       date: '2026-06-15',
       time: '20:00',
@@ -33,13 +33,13 @@ export class EventsService {
     },
     {
       id: 3,
-      title: 'Festival de Música Indie',
+      title: 'Concierto de Música Indie',
       description: 'Festival con bandas independientes',
       type: 'concierto',
       date: '2026-08-20',
       time: '18:00',
       location: 'Parque Central',
-      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1221.jpg?fit=1920%2C1180&ssl=1',
+      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1219.jpg?fit=1920%2C1180&ssl=1',
       price: 80,
       rating: 4.5
     },
@@ -52,7 +52,7 @@ export class EventsService {
       date: '2026-06-20',
       time: '19:00',
       location: 'Teatro Nacional',
-      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1222.jpg?fit=1920%2C1180&ssl=1',
+      image: 'https://images.unsplash.com/photo-1503095396549-807759245b35?w=600&q=80',
       price: 45,
       rating: 4.7
     },
@@ -64,7 +64,7 @@ export class EventsService {
       date: '2026-07-05',
       time: '20:00',
       location: 'Teatro Colón',
-      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1223.jpg?fit=1920%2C1180&ssl=1',
+      image: 'https://images.unsplash.com/photo-1503095396549-807759245b35?w=600&q=80',
       price: 55,
       rating: 4.6
     },
@@ -76,7 +76,7 @@ export class EventsService {
       date: '2026-06-25',
       time: '18:30',
       location: 'Teatro de la Risa',
-      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1224.jpg?fit=1920%2C1180&ssl=1',
+      image: 'https://images.unsplash.com/photo-1503095396549-807759245b35?w=600&q=80',
       price: 35,
       rating: 4.4
     },
@@ -89,7 +89,7 @@ export class EventsService {
       date: '2026-06-10',
       time: '15:00',
       location: 'Estadio Olímpico',
-      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1225.jpg?fit=1920%2C1180&ssl=1',
+      image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&q=80',
       price: 70,
       rating: 4.8
     },
@@ -101,7 +101,7 @@ export class EventsService {
       date: '2026-07-15',
       time: '14:00',
       location: 'Centro de Tenis',
-      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1219.jpg?fit=1920%2C1180&ssl=1',
+      image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&q=80',
       price: 85,
       rating: 4.7
     },
@@ -113,7 +113,7 @@ export class EventsService {
       date: '2026-08-01',
       time: '20:00',
       location: 'Arena de Combate',
-      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1226.jpg?fit=1920%2C1180&ssl=1',
+      image: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&q=80',
       price: 200,
       rating: 4.9
     },
@@ -126,7 +126,7 @@ export class EventsService {
       date: '2026-06-30',
       time: '16:00',
       location: 'Centro de Convenciones',
-      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1227.jpg?fit=1920%2C1180&ssl=1',
+      image: 'https://plus.unsplash.com/premium_photo-1661284892176-fd7713b764a6?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       price: 25,
       rating: 4.8
     },
@@ -138,7 +138,7 @@ export class EventsService {
       date: '2026-07-20',
       time: '11:00',
       location: 'Plaza Mayor',
-      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1228.jpg?fit=1920%2C1180&ssl=1',
+      image: 'https://plus.unsplash.com/premium_photo-1661284892176-fd7713b764a6?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       price: 30,
       rating: 4.6
     },
@@ -150,7 +150,7 @@ export class EventsService {
       date: '2026-08-10',
       time: '10:00',
       location: 'Museo de Bellas Artes',
-      image: 'https://i0.wp.com/placeres.pe/wp-content/uploads/2025/02/img_1229.jpg?fit=1920%2C1180&ssl=1',
+      image: 'https://plus.unsplash.com/premium_photo-1661284892176-fd7713b764a6?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
       price: 20,
       rating: 4.5
     }
