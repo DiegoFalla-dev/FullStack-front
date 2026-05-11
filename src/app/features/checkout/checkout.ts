@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { EventsService } from '../events.service';
 import { Event } from '../events.model';
+import { AuthService, User } from '../../services/auth.service';
+import { HttpClient } from '@angular/common/http';
 
 interface OrderData {
   eventId: number;
@@ -42,14 +44,26 @@ export class Checkout implements OnInit {
   isProcessing: boolean = false;
   paymentSuccess: boolean = false;
   paymentError: string = '';
+  showSuccessModal: boolean = false;
 
   constructor(
-    private router: Router,
+    public router: Router,
     private route: ActivatedRoute,
-    private eventsService: EventsService
+    private eventsService: EventsService,
+    private authService: AuthService,
+    private http: HttpClient
   ) {}
 
   ngOnInit(): void {
+    // Pre-llenar datos del usuario logueado
+    const currentUser = this.authService.getCurrentUser();
+    if (currentUser) {
+      this.firstName = currentUser.firstName;
+      this.lastName = currentUser.lastName;
+      this.email = currentUser.email;
+      this.phone = currentUser.phone;
+    }
+
     // Get order data from navigation state
     const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
@@ -88,7 +102,81 @@ export class Checkout implements OnInit {
     }
   }
 
-  // Format card number as user types (XXXX XXXX XXXX XXXX)
+  processPayment(): void {
+    if (!this.validatePaymentForm()) {
+      return;
+    }
+
+    this.isProcessing = true;
+    this.paymentError = '';
+
+    const paymentData = {
+      firstName: this.firstName,
+      lastName: this.lastName,
+      email: this.email,
+      phone: this.phone,
+      cardNumber: this.cardNumber,
+      cardHolder: this.cardHolder,
+      expiryMonth: this.expiryMonth,
+      expiryYear: this.expiryYear,
+      cvv: this.cvv,
+      total: this.orderData?.total,
+      eventId: this.orderData?.eventId,
+      zone: this.orderData?.zone,
+      quantity: this.orderData?.quantity
+    };
+
+    // Simulate processing delay (2 seconds)
+    setTimeout(() => {
+      this.isProcessing = false;
+      
+      // Try to call backend, but show success modal either way
+      this.http.post('http://localhost:8080/api/auth/payment', paymentData).subscribe({
+        next: (response: any) => {
+          if (response.success) {
+            this.showSuccessModal = true;
+          } else {
+            this.paymentError = response.message || 'Error al procesar el pago';
+          }
+        },
+        error: (error) => {
+          // Show success modal even if backend is not available
+          this.showSuccessModal = true;
+          console.log('Backend no disponible, mostrando modal de éxito de simulación');
+        }
+      });
+    }, 2000);
+  }
+
+  validatePaymentForm(): boolean {
+    if (!this.firstName || !this.lastName || !this.email || !this.phone) {
+      this.paymentError = 'Por favor, completa tu información personal';
+      return false;
+    }
+
+    if (!this.cardNumber || !this.cardHolder || !this.expiryMonth || !this.expiryYear || !this.cvv) {
+      this.paymentError = 'Por favor, completa tu información de tarjeta';
+      return false;
+    }
+
+    if (this.cardNumber.replace(/\s/g, '').length !== 16) {
+      this.paymentError = 'El número de tarjeta debe tener 16 dígitos';
+      return false;
+    }
+
+    if (this.cvv.length !== 3) {
+      this.paymentError = 'El CVV debe tener 3 dígitos';
+      return false;
+    }
+
+    return true;
+  }
+
+  closeSuccessModal(): void {
+    this.showSuccessModal = false;
+    this.router.navigate(['/']);
+  }
+
   formatCardNumber(value: string): string {
     const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
     const matches = v.match(/\d{4,16}/g);
@@ -111,7 +199,6 @@ export class Checkout implements OnInit {
     event.target.value = this.cardNumber;
   }
 
-  // Format expiry (MM/YY)
   onExpiryChange(event: any): void {
     let value = event.target.value.replace(/\D/g, '');
     if (value.length >= 2) {
@@ -119,50 +206,12 @@ export class Checkout implements OnInit {
     }
     this.expiryMonth = value.split('/')[0] || '';
     this.expiryYear = value.split('/')[1] || '';
+    event.target.value = value;
   }
 
-  // CVV only numbers
   onCVVChange(event: any): void {
     this.cvv = event.target.value.replace(/\D/g, '').substring(0, 3);
     event.target.value = this.cvv;
-  }
-
-  processPayment(): void {
-    // Validation
-    if (!this.firstName || !this.lastName || !this.email || !this.phone) {
-      this.paymentError = 'Por favor completa todos los datos personales';
-      return;
-    }
-
-    if (!this.cardNumber || !this.cardHolder || !this.expiryMonth || !this.expiryYear || !this.cvv) {
-      this.paymentError = 'Por favor completa todos los datos de la tarjeta';
-      return;
-    }
-
-    if (this.cardNumber.replace(/\s/g, '').length !== 16) {
-      this.paymentError = 'Número de tarjeta inválido (16 dígitos requeridos)';
-      return;
-    }
-
-    if (this.cvv.length !== 3) {
-      this.paymentError = 'CVV inválido (3 dígitos requeridos)';
-      return;
-    }
-
-    // Simulate payment processing
-    this.isProcessing = true;
-    this.paymentError = '';
-
-    // Simulate API call
-    setTimeout(() => {
-      this.isProcessing = false;
-      this.paymentSuccess = true;
-      
-      // After 3 seconds, redirect to home
-      setTimeout(() => {
-        this.router.navigate(['/']);
-      }, 3000);
-    }, 2000);
   }
 
   goBack(): void {

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
 
 export interface EventZone {
   name: string;
@@ -26,12 +28,23 @@ export interface TicketEvent {
 })
 export class EventsManagementComponent implements OnInit {
   events: TicketEvent[] = [];
+  isLoading = false;
+  currentAdminName = 'Admin Master';
+  activeTab: 'usuarios' | 'eventos' = 'eventos';
   isModalOpen = false;
   modalMode: 'CREATE' | 'EDIT' = 'CREATE';
   selectedEvent: TicketEvent | null = null;
 
+  constructor(private router: Router, private authService: AuthService) {}
+
   ngOnInit(): void {
-    // Mock data for UI demonstration
+    // Intentar obtener el nombre del admin real
+    const user = this.authService.getCurrentUser();
+    if (user) {
+      this.currentAdminName = `${user.firstName} ${user.lastName}`;
+    }
+
+    // Mock data según tu solicitud
     this.events = [
       {
         id: 1,
@@ -56,9 +69,13 @@ export class EventsManagementComponent implements OnInit {
     ];
   }
 
+  goToUsers(): void {
+    this.router.navigate(['/admin/users']);
+  }
+
   openModal(mode: 'CREATE' | 'EDIT', event?: TicketEvent): void {
     this.modalMode = mode;
-    this.selectedEvent = event || null;
+    this.selectedEvent = event ? JSON.parse(JSON.stringify(event)) : null; // Clon profundo
     this.isModalOpen = true;
     document.body.style.overflow = 'hidden';
   }
@@ -70,14 +87,14 @@ export class EventsManagementComponent implements OnInit {
   }
 
   deleteEvent(eventId: number): void {
-    if (confirm('Are you sure you want to delete this event?')) {
+    if (confirm('¿Estás seguro de que deseas eliminar este evento?')) {
       this.events = this.events.filter(e => e.id !== eventId);
     }
   }
 
   saveEvent(): void {
     this.closeModal();
-    alert('Event saved successfully! (Visual Mock)');
+    alert('Evento guardado exitosamente! (Visual Mock)');
   }
 
   formatZones(zones: EventZone[]): string {
