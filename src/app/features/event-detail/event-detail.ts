@@ -125,17 +125,20 @@ export class EventDetail implements OnInit {
 
   addToCart(): void {
     if (this.selectedZone && this.selectedPromotion && this.quantity > 0) {
-      // TODO: Implement cart logic
-      console.log('Added to cart:', {
-        event: this.event,
-        zone: this.selectedZone,
-        promotion: this.selectedPromotion,
+      // Prepare order data
+      const orderData = {
+        eventId: this.event!.id,
+        zone: this.selectedZone.name,
+        promotion: this.selectedPromotion.label,
         quantity: this.quantity,
         pricePerUnit: this.getPromotionPrice(),
         total: this.getTotalPrice()
+      };
+
+      // Navigate to checkout with order data
+      this.router.navigate(['/checkout'], {
+        state: { orderData }
       });
-      // For now, show a simple alert
-      alert(`Se agregaron ${this.quantity} entrada(s) a tu carrito`);
     }
   }
 
