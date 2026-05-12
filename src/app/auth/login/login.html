@@ -5,7 +5,11 @@
       <p>Inicia sesión en tu cuenta</p>
     </div>
 
-    <form class="login-form">
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <form class="login-form" (ngSubmit)="onLogin()">
       <div class="form-group">
         <label for="email">Email</label>
         <input
@@ -13,6 +17,8 @@
           id="email"
           placeholder="tu@email.com"
           class="form-input"
+          [(ngModel)]="email"
+          name="email"
           required
         />
       </div>
@@ -24,19 +30,23 @@
           id="password"
           placeholder="••••••••"
           class="form-input"
+          [(ngModel)]="password"
+          name="password"
           required
         />
       </div>
 
       <div class="form-options">
         <label class="checkbox-label">
-          <input type="checkbox" />
+          <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" />
           Recuérdame
         </label>
         <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
       </div>
 
-      <button type="submit" class="btn-login">Inicia Sesión</button>
+      <button type="submit" class="btn-login" [disabled]="isLoading">
+        {{ isLoading ? 'Cargando...' : 'Inicia Sesión' }}
+      </button>
     </form>
 
     <div class="divider">

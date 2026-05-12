@@ -340,3 +340,111 @@ select.form-control option {
     gap: 16px;
   }
 }
+
+/* ---- Loading & Empty State ---- */
+.loading {
+  text-align: center;
+  padding: 40px 24px;
+  color: var(--admin-text-muted);
+  font-size: 1rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 24px;
+  color: var(--admin-text-muted);
+  font-size: 1rem;
+}
+
+.admin-dropdown-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--admin-border);
+  color: var(--admin-text);
+  font-size: 0.875rem;
+}
+
+.navbar__dropdown-header {
+  padding: 12px 0;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 8px;
+}
+
+.navbar__dropdown-header strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.navbar__dropdown-header small {
+  display: block;
+  font-size: 0.75rem;
+  opacity: 0.7;
+  margin-top: 4px;
+}
+
+.admin-tabs {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 32px;
+  border-bottom: 1px solid var(--admin-border);
+  padding-bottom: 16px;
+}
+
+.admin-tab {
+  background: none;
+  border: none;
+  color: var(--admin-text-muted);
+  cursor: pointer;
+  padding: 8px 0;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: color var(--transition);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -17px;
+  padding-bottom: 17px;
+}
+
+.admin-tab:hover:not(:disabled) {
+  color: var(--admin-text);
+}
+
+.admin-tab.active {
+  color: var(--admin-accent);
+  border-bottom-color: var(--admin-accent);
+}
+
+.admin-tab:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.events-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 24px;
+}
+
+.event-card {
+  background: var(--admin-surface);
+  border: 1px solid var(--admin-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.event-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.event-card h3 {
+  margin: 0 0 8px 0;
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.event-card p {
+  margin: 0;
+  color: var(--admin-text-muted);
+  font-size: 0.875rem;
+}

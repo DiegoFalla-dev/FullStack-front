@@ -5,7 +5,11 @@
       <p>Crea tu cuenta</p>
     </div>
 
-    <form class="register-form">
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <form class="register-form" (ngSubmit)="onRegister()">
       <div class="form-row">
         <div class="form-group">
           <label for="firstName">Nombre</label>
@@ -14,6 +18,8 @@
             id="firstName"
             placeholder="Juan"
             class="form-input"
+            [(ngModel)]="firstName"
+            name="firstName"
             required
           />
         </div>
@@ -24,6 +30,8 @@
             id="lastName"
             placeholder="Pérez"
             class="form-input"
+            [(ngModel)]="lastName"
+            name="lastName"
             required
           />
         </div>
@@ -36,6 +44,8 @@
           id="registerEmail"
           placeholder="tu@email.com"
           class="form-input"
+          [(ngModel)]="email"
+          name="email"
           required
         />
       </div>
@@ -47,6 +57,8 @@
           id="phone"
           placeholder="+51 999 999 999"
           class="form-input"
+          [(ngModel)]="phone"
+          name="phone"
         />
       </div>
 
@@ -57,6 +69,8 @@
           id="registerPassword"
           placeholder="••••••••"
           class="form-input"
+          [(ngModel)]="password"
+          name="password"
           required
         />
         <p class="password-hint">Mínimo 8 caracteres</p>
@@ -69,17 +83,21 @@
           id="confirmPassword"
           placeholder="••••••••"
           class="form-input"
+          [(ngModel)]="confirmPassword"
+          name="confirmPassword"
           required
         />
       </div>
 
       <label class="terms-label">
-        <input type="checkbox" required />
+        <input type="checkbox" [(ngModel)]="acceptTerms" name="acceptTerms" required />
         Acepto los
         <a href="#" class="terms-link">términos y condiciones</a>
       </label>
 
-      <button type="submit" class="btn-register">Crear Cuenta</button>
+      <button type="submit" class="btn-register" [disabled]="isLoading">
+        {{ isLoading ? 'Cargando...' : 'Crear Cuenta' }}
+      </button>
     </form>
 
     <p class="login-link">
