@@ -1,0 +1,41 @@
+<div class="events-container">
+  <div class="events-header">
+    <h1>Conciertos</h1>
+    <p>Descubre los mejores conciertos en vivo</p>
+  </div>
+
+  <div class="events-grid">
+    <div *ngFor="let evento of conciertos" class="event-card">
+      <div class="event-image">
+        <img [src]="evento.image" [alt]="evento.title" />
+        <span class="event-price">S/ {{ evento.price }}</span>
+      </div>
+
+      <div class="event-content">
+        <h3>{{ evento.title }}</h3>
+        <p class="event-description">{{ evento.description }}</p>
+
+        <div class="event-details">
+          <div class="detail">
+            <span class="label">Fecha:</span>
+            <span class="value">{{ evento.date }}</span>
+          </div>
+          <div class="detail">
+            <span class="label">Hora:</span>
+            <span class="value">{{ evento.time }}</span>
+          </div>
+          <div class="detail">
+            <span class="label">Ubicación:</span>
+            <span class="value">{{ evento.location }}</span>
+          </div>
+          <div class="detail">
+            <span class="label">Calificación:</span>
+            <span class="value stars">★ {{ evento.rating }}</span>
+          </div>
+        </div>
+
+        <button class="btn-comprar" (click)="goToEventDetail(evento.id)">Comprar Entrada</button>
+      </div>
+    </div>
+  </div>
+</div>

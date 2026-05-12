@@ -2,6 +2,23 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 
+interface FooterItem {
+  label: string;
+  path: string;
+  queryParams?: { [key: string]: any };
+}
+
+interface FooterGroup {
+  title: string;
+  items: FooterItem[];
+}
+
+interface FooterSocial {
+  label: string;
+  url: string;
+  icon: string;
+}
+
 @Component({
   selector: 'app-footer',
   templateUrl: './footer.html',
@@ -13,38 +30,37 @@ export class Footer {
 
   currentYear = new Date().getFullYear();
 
-  links = [
+  links: FooterGroup[] = [
     {
       title: 'Descubrir',
       items: [
-        { label: 'Conciertos',  path: '/events', query: { category: 'conciertos' } },
-        { label: 'Teatro',      path: '/events', query: { category: 'teatro' } },
-        { label: 'Deportes',    path: '/events', query: { category: 'deportes' } },
-        { label: 'Festivales',  path: '/events', query: { category: 'festivales' } },
-        { label: 'Stand Up',    path: '/events', query: { category: 'stand-up' } },
+        { label: 'Conciertos',  path: '/', queryParams: { category: 'concierto' } },
+        { label: 'Teatro',      path: '/', queryParams: { category: 'teatro' } },
+        { label: 'Deportes',    path: '/', queryParams: { category: 'deporte' } },
+        { label: 'Festivales',  path: '/', queryParams: { category: 'festival' } },
       ]
     },
     {
       title: 'Tu cuenta',
       items: [
-        { label: 'Iniciar sesión',  path: '/login',            query: {} },
-        { label: 'Registrarse',     path: '/register',         query: {} },
-        { label: 'Mis entradas',    path: '/profile/orders',   query: {} },
-        { label: 'Mi perfil',       path: '/profile',          query: {} },
+        { label: 'Iniciar sesión',  path: '/login' },
+        { label: 'Registrarse',     path: '/register' },
+        { label: 'Mis entradas',    path: '/profile/orders' },
+        { label: 'Mi perfil',       path: '/profile' },
       ]
     },
     {
       title: 'Ayuda',
       items: [
-        { label: 'Preguntas frecuentes', path: '/faq',      query: {} },
-        { label: 'Términos de uso',      path: '/terms',    query: {} },
-        { label: 'Política de privacidad', path: '/privacy', query: {} },
-        { label: 'Contacto',             path: '/contact',  query: {} },
+        { label: 'Preguntas frecuentes', path: '/faq' },
+        { label: 'Términos de uso',      path: '/terms' },
+        { label: 'Política de privacidad', path: '/privacy' },
+        { label: 'Contacto',             path: '/contact' },
       ]
     }
   ];
 
-  socials = [
+  socials: FooterSocial[] = [
     {
       label: 'Facebook',
       url: 'https://facebook.com',

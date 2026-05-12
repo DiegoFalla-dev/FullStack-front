@@ -1,6 +1,7 @@
 import { Component, OnInit, HostListener } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { AuthService, User } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-navbar',
@@ -16,20 +17,40 @@ export class Navbar implements OnInit {
   isUserMenuOpen = false;
   cartCount = 0;
 
-  // Simulado — reemplazar con AuthService cuando lo implementes
   isLoggedIn = false;
-  userName = 'User';
+  currentUser: User | null = null;
+  userRole: string | null = null;
 
   navLinks = [
-    { label: 'Conciertos', path: '/events', query: { category: 'conciertos' } },
-    { label: 'Teatro',     path: '/events', query: { category: 'teatro' } },
-    { label: 'Deportes',   path: '/events', query: { category: 'deportes' } },
-    { label: 'Festivales', path: '/events', query: { category: 'festivales' } },
+    { label: 'Conciertos', path: '/', queryParams: { category: 'concierto' } },
+    { label: 'Teatro',     path: '/', queryParams: { category: 'teatro' } },
+    { label: 'Deportes',   path: '/', queryParams: { category: 'deporte' } },
+    { label: 'Festivales', path: '/', queryParams: { category: 'festival' } },
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit() {
+    this.authService.currentUser$.subscribe(user => {
+      this.currentUser = user;
+      this.isLoggedIn = user !== null;
+    });
+
+    this.authService.currentRole$.subscribe(role => {
+      this.userRole = role;
+    });
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
+    this.closeMenus();
+  }
+
+  goToAdmin() {
+    this.router.navigate(['/admin/users']);
+    this.closeMenus();
+  }
 
   @HostListener('window:scroll')
   onScroll(): void {
@@ -48,15 +69,5 @@ export class Navbar implements OnInit {
   closeMenus(): void {
     this.isMobileMenuOpen = false;
     this.isUserMenuOpen = false;
-  }
-
-  logout(): void {
-    this.isLoggedIn = false;
-    this.closeMenus();
-    this.router.navigate(['/']);
-  }
-
-  goToCart(): void {
-    this.router.navigate(['/cart']);
   }
 }

@@ -1,5 +1,7 @@
-<app-navbar></app-navbar>
+<app-navbar *ngIf="!hideHeaderFooter()"></app-navbar>
 
-<app-footer></app-footer>
+<main class="main-content">
+  <router-outlet></router-outlet>
+</main>
 
-<router-outlet></router-outlet>
+<app-footer *ngIf="!hideHeaderFooter()"></app-footer>

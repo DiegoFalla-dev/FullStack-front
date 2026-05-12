@@ -1,0 +1,72 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>TicketFlow</h1>
+      <p>Inicia sesión en tu cuenta</p>
+    </div>
+
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <form class="login-form" (ngSubmit)="onLogin()">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          placeholder="tu@email.com"
+          class="form-input"
+          [(ngModel)]="email"
+          name="email"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="password">Contraseña</label>
+        <input
+          type="password"
+          id="password"
+          placeholder="••••••••"
+          class="form-input"
+          [(ngModel)]="password"
+          name="password"
+          required
+        />
+      </div>
+
+      <div class="form-options">
+        <label class="checkbox-label">
+          <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe" />
+          Recuérdame
+        </label>
+        <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <button type="submit" class="btn-login" [disabled]="isLoading">
+        {{ isLoading ? 'Cargando...' : 'Inicia Sesión' }}
+      </button>
+    </form>
+
+    <div class="divider">
+      <span>O continúa con</span>
+    </div>
+
+    <div class="social-login">
+        <div class="social-buttons">
+            <button type="button" class="btn-social">
+                <span>Google</span>
+            </button>
+            <button type="button" class="btn-social">
+                <span>Facebook</span>
+            </button>
+        </div>
+    </div>
+    
+    <p class="signup-link">
+      ¿No tienes cuenta?
+      <a routerLink="/auth/register">Regístrate aquí</a>
+    </p>
+  </div>
+</div>

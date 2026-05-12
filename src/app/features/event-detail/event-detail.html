@@ -1,0 +1,128 @@
+<div class="event-detail-container" *ngIf="event">
+  <!-- Header Navigation -->
+  <div class="event-detail-header">
+    <div class="header-nav">
+      <button class="nav-back" routerLink="/">← Volver</button>
+      <div class="header-title">Detalle de Evento</div>
+      <div class="cart-icon" routerLink="/cart">Mi carrito ({{ cartCount }})</div>
+    </div>
+  </div>
+
+  <!-- Event Image Section -->
+  <div class="event-image-section">
+    <img [src]="event.image" [alt]="event.title" class="event-image" />
+  </div>
+
+  <!-- Event Content -->
+  <div class="event-content">
+    <!-- Event Header -->
+    <div class="event-header">
+      <div class="event-meta">
+        <span class="event-type-badge" [attr.data-type]="event.type">
+          {{ getTypeIcon() }} {{ getTypeLabel() }}
+        </span>
+        <span class="event-rating">⭐ {{ event.rating }}/5</span>
+      </div>
+      <h1 class="event-title">{{ event.title }}</h1>
+    </div>
+
+    <!-- Event Details Grid -->
+    <div class="event-details-grid">
+      <div class="detail-item">
+        <span class="detail-icon">📅</span>
+        <div>
+          <div class="detail-label">Fecha</div>
+          <div class="detail-value">{{ event.date }}</div>
+        </div>
+      </div>
+      <div class="detail-item">
+        <span class="detail-icon">⏰</span>
+        <div>
+          <div class="detail-label">Hora</div>
+          <div class="detail-value">{{ event.time }}</div>
+        </div>
+      </div>
+      <div class="detail-item">
+        <span class="detail-icon">📍</span>
+        <div>
+          <div class="detail-label">Ubicación</div>
+          <div class="detail-value">{{ event.location }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Description -->
+    <div class="event-description">
+      <h3>Descripción</h3>
+      <p>{{ event.description }}</p>
+    </div>
+
+    <!-- Promotions/Prices Section -->
+    <div class="promotions-section">
+      <h3>Selecciona tu tipo de entrada</h3>
+      <div class="promotions-grid">
+        <div 
+          *ngFor="let promo of promotions" 
+          class="promo-card"
+          [class.active]="selectedPromotion?.id === promo.id"
+          (click)="selectPromotion(promo)"
+        >
+          <div class="promo-icon">{{ promo.icon }}</div>
+          <div class="promo-content">
+            <div class="promo-label">{{ promo.label }}</div>
+            <div class="promo-description">{{ promo.description }}</div>
+            <div class="promo-price">S/ {{ event.price * promo.multiplier | number:'1.0-0' }}</div>
+          </div>
+          <div class="promo-check" *ngIf="selectedPromotion?.id === promo.id">✓</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Zones Section -->
+    <div class="zones-section">
+      <h3>Selecciona tu zona</h3>
+      <div class="zones-grid">
+        <div 
+          *ngFor="let zone of zones" 
+          class="zone-card"
+          [class.active]="selectedZone === zone"
+          (click)="selectZone(zone)"
+        >
+          <div class="zone-name">{{ zone.name }}</div>
+          <div class="zone-price">S/ {{ (zone.price * selectedPromotion!.multiplier) | number:'1.0-0' }}</div>
+          <div class="zone-subtitle">por entrada</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quantity Selector -->
+    <div class="quantity-section" *ngIf="selectedZone">
+      <div class="quantity-label">Cantidad de entradas</div>
+      <div class="quantity-selector">
+        <button class="qty-btn" (click)="decrementQuantity()">−</button>
+        <span class="qty-display">{{ quantity }}</span>
+        <button class="qty-btn" (click)="incrementQuantity()">+</button>
+      </div>
+    </div>
+
+    <!-- Summary Card -->
+    <div class="summary-card" *ngIf="selectedZone && selectedPromotion">
+      <div class="summary-row">
+        <span>{{ quantity }} entrada(s) × {{ selectedZone.name }}</span>
+        <span>S/ {{ getPromotionPrice() }}</span>
+      </div>
+      <div class="summary-row" *ngIf="selectedPromotion.multiplier < 1" class="discount-row">
+        <span>{{ selectedPromotion.label }}</span>
+        <span>{{ ((1 - selectedPromotion.multiplier) * 100) | number:'1.0-0' }}% descuento</span>
+      </div>
+      <div class="summary-divider"></div>
+      <div class="summary-row total">
+        <span>Total</span>
+        <span>S/ {{ getTotalPrice() }}</span>
+      </div>
+      <button class="add-to-cart-btn" (click)="addToCart()">
+        Ir a pasarela de pagos
+      </button>
+    </div>
+  </div>
+</div>
